@@ -83,6 +83,7 @@ export default defineConfig([
           trailingComma: 'all',
           tabWidth: 2,
           useTabs: false,
+          plugins: ['prettier-plugin-tailwindcss'],
         },
       ],
     },
