@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router';
 
-import DetailPage from '../pages/detail/DetailPage';
-import HomePage from '../pages/home/HomePage';
-import NotFoundPage from '../pages/not-found/NotFoundPage';
-
-import GlobalLayout from './globalLayout';
+import DetailPage from '@/pages/detail/DetailPage';
+import HomePage from '@/pages/home/HomePage';
+import NotFoundPage from '@/pages/not-found/NotFoundPage';
+import GlobalLayout from '@/shared/ui/layouts/globalLayout';
 
 const AppRouter = () => {
   return (
