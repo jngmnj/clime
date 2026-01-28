@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import App from '@/App.tsx';
+import { Toaster } from '@/components/ui/sonner.tsx';
 import '@/index.css';
 import { queryClient } from '@/shared/config/queryClient.ts';
 
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
       <QueryClientProvider client={queryClient}>
         <App />
         <ReactQueryDevtools />
+        <Toaster position="top-center" />
       </QueryClientProvider>
     </BrowserRouter>
   </StrictMode>,
