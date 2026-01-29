@@ -1,58 +1,67 @@
-import { Suspense, useEffect, useState } from 'react';
+import { MapPin } from 'lucide-react';
+import { Suspense, useEffect, useMemo } from 'react';
+import { Link } from 'react-router';
 import { toast } from 'sonner';
 
-import type { Coords } from '@/entities/weather/model/type';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Coords } from '@/entities/weather/model/types';
 import CurrentDateAndTime from '@/features/display-current-weather/ui/CurrentDateAndTime';
 import CurrentWeather from '@/features/display-current-weather/ui/CurrentWeather';
 import { CurrentWeatherSkeleton } from '@/features/display-current-weather/ui/CurrentWeatherSkeleton';
+import { useCurrentPosition } from '@/shared/hooks/useCurrentPosition';
 import { SEOUL_COORDS } from '@/shared/lib/constants';
 
 const HomePage = () => {
-  const [coords, setCoords] = useState<Coords | null>(null);
+  const { location, error, isLoading } = useCurrentPosition();
+  const coords: Coords | null = useMemo(() => {
+    return location
+      ? { latitude: location.latitude, longitude: location.longitude }
+      : null;
+  }, [location]);
 
   useEffect(() => {
-    if (typeof navigator === 'undefined' || !navigator.geolocation) {
-      queueMicrotask(() => {
-        toast.error('브라우저에서 위치 정보를 지원하지 않습니다.');
-        setCoords({
-          latitude: SEOUL_COORDS.lat,
-          longitude: SEOUL_COORDS.lon,
-        });
-      });
+    if (!error) return;
+    if (error.code === -1) {
+      toast.error(error.message);
       return;
     }
+    // 권한 거부/타임아웃 등 모든 케이스는 서울로 폴백
+    toast.error('위치 정보를 가져올 수 없어 서울 기준으로 보여드립니다.');
+  }, [error]);
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCoords({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error(error);
-        toast.error('위치 정보를 가져올 수 없어 서울 기준으로 보여드립니다.');
-        setCoords({
-          latitude: SEOUL_COORDS.lat,
-          longitude: SEOUL_COORDS.lon,
-        });
-      },
-      {
-        enableHighAccuracy: false,
-        timeout: 5000,
-        maximumAge: 1000 * 60 * 5,
-      },
-    );
-  }, []);
+  const lat = coords?.latitude ?? SEOUL_COORDS.lat;
+  const lon = coords?.longitude ?? SEOUL_COORDS.lon;
+  const locationLabel = useMemo(() => {
+    if (isLoading) return '위치 확인중...';
+    if (!coords) return '서울(기본값)';
+    return '현재 위치';
+  }, [coords, isLoading]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mx-auto max-w-2xl space-y-8">
-        <Suspense fallback={<CurrentWeatherSkeleton />}>
-          <CurrentWeather coords={coords} />
-        </Suspense>
+    <div className="relative">
+      <div className="container mx-auto px-4 py-10">
+        <div className="mx-auto max-w-2xl space-y-8">
+          <Link to={`/detail?lat=${lat}&lon=${lon}`} className="block">
+            <Card className="border-white/10 bg-white/10 transition-shadow hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between text-white">
+                  <span>현재 날씨</span>
+                  <span className="flex items-center gap-1 text-sm font-normal text-white/80">
+                    <MapPin className="h-4 w-4" />
+                    {locationLabel}
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6 text-white">
+                <Suspense fallback={<CurrentWeatherSkeleton />}>
+                  <CurrentWeather coords={coords} />
+                </Suspense>
+              </CardContent>
+            </Card>
+          </Link>
 
-        <CurrentDateAndTime />
+          <CurrentDateAndTime />
+        </div>
       </div>
     </div>
   );
