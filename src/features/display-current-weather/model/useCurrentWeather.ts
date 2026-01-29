@@ -6,7 +6,7 @@ import { weatherQueryKey } from '@/entities/weather/model/query';
 
 export const useCurrentWeather = (latitude: number, longitude: number) => {
   return useSuspenseQuery({
-    queryKey: [weatherQueryKey, latitude, longitude],
+    queryKey: weatherQueryKey(latitude, longitude),
     queryFn: () => fetchCurrentWeather(latitude, longitude),
   });
 };

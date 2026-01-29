@@ -14,7 +14,7 @@ const CurrentDateAndTime = () => {
   }, []);
 
   return (
-    <div className="text-muted-foreground flex w-full justify-center gap-4 text-sm">
+    <div className="flex w-full justify-center gap-4 text-sm text-white/80">
       <p>{formatDate(currentTime)}</p>
       <p>{formatTime(currentTime)}</p>
     </div>
