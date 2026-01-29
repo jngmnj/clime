@@ -8,6 +8,7 @@ import type { Coords } from '@/entities/weather/model/types';
 import CurrentDateAndTime from '@/features/display-current-weather/ui/CurrentDateAndTime';
 import CurrentWeather from '@/features/display-current-weather/ui/CurrentWeather';
 import { CurrentWeatherSkeleton } from '@/features/display-current-weather/ui/CurrentWeatherSkeleton';
+import { FavoriteList } from '@/features/favorite-location';
 import { useCurrentPosition } from '@/shared/hooks/useCurrentPosition';
 import { useRegionName } from '@/shared/hooks/useRegionName';
 import { SEOUL_COORDS } from '@/shared/lib/constants';
@@ -65,6 +66,8 @@ const HomePage = () => {
               </CardContent>
             </Card>
           </Link>
+
+          <FavoriteList />
 
           <CurrentDateAndTime />
         </div>

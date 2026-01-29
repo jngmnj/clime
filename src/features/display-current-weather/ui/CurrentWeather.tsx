@@ -1,9 +1,6 @@
-import { MapPin } from 'lucide-react';
-
 import { useCurrentWeather } from '../model/useCurrentWeather';
 
 import type { Coords } from '@/entities/weather/model/types';
-import { useRegionName } from '@/shared/hooks/useRegionName';
 import { SEOUL_COORDS } from '@/shared/lib/constants';
 import { formatDegree } from '@/shared/lib/formatDegree';
 
@@ -11,17 +8,9 @@ const CurrentWeather = ({ coords }: { coords: Coords | null }) => {
   const lat = coords?.latitude ?? SEOUL_COORDS.lat;
   const lon = coords?.longitude ?? SEOUL_COORDS.lon;
   const { data: weatherData } = useCurrentWeather(lat, lon);
-  const { data: regionName } = useRegionName(lat, lon);
-
-  const displayName = regionName ?? weatherData?.name ?? '—';
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-center gap-2 text-white/80">
-        <MapPin className="h-5 w-5" />
-        <p>{displayName}</p>
-      </div>
-
       <div className="mb-4 text-center">
         <p className="mb-3 text-6xl font-bold">
           {formatDegree(weatherData?.main.temp)}°
