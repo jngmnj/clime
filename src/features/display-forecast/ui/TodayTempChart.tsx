@@ -24,10 +24,15 @@ const TodayTempChart = ({ todayItems }: TodayTempChartProps) => {
   if (todayItems.length === 0) return null;
 
   const data: ChartPoint[] = todayItems.map((item) => {
-    const timeStr = new Date(item.dt * 1000).toLocaleTimeString('ko-KR', {
-      hour: 'numeric',
-      minute: '2-digit',
-    });
+    const timeStr = item.dt_txt.slice(11, 16);
+    if (timeStr === '00:00') {
+      // 내일 00:00이라고 표시
+      return {
+        time: `내일 00:00`,
+        temp: Math.round(item.main.temp),
+        fullLabel: `내일 00:00`,
+      };
+    }
     return {
       time: timeStr,
       temp: Math.round(item.main.temp),
