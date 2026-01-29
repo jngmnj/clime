@@ -76,7 +76,7 @@ const NextDaysForecast = ({ list }: NextDaysForecastProps) => {
         {days.map((day) => (
           <div
             key={day.dateKey}
-            className="bg-card flex-1 rounded-xl border p-4 shadow-sm"
+            className="bg-card border-card-border flex-1 rounded-xl border p-4 shadow-sm"
           >
             <p className="text-muted-foreground mb-3 text-center font-medium">
               {formatDayLabel(day.items[0].dt)}

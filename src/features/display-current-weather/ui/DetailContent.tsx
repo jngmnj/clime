@@ -60,7 +60,7 @@ const DetailContent = () => {
         <CurrentWeatherDetail data={weather} />
       </section>
 
-      <section className="bg-card rounded-xl border p-6">
+      <section className="bg-card border-card-border rounded-xl border p-6">
         <TodayTempChart todayItems={todayItems} />
       </section>
 
