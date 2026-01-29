@@ -54,7 +54,7 @@ const FavoriteCard = ({ favorite }: FavoriteCardProps) => {
       <Link to={detailUrl} className="block">
         <Card className="border-white/10 bg-white/10 transition-shadow hover:shadow-lg">
           <CardHeader className="flex flex-row items-start justify-between gap-2 pb-2">
-            <CardTitle className="flex items-center gap-2 text-base font-medium text-white">
+            <CardTitle className="flex min-w-0 items-center gap-2 text-base font-medium text-white">
               <MapPin className="size-4 shrink-0 text-white/80" />
               <span className="truncate">{displayName}</span>
             </CardTitle>
