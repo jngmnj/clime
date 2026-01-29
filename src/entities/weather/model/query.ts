@@ -7,3 +7,6 @@ export const weatherQueryKey = (lat: number, lon: number) =>
 
 export const forecastQueryKey = (lat: number, lon: number) =>
   [QUERY_KEYS.forecast, lat, lon] as const;
+
+export const regionNameQueryKey = (lat: number, lon: number) =>
+  [QUERY_KEYS.regionName, lat, lon] as const;

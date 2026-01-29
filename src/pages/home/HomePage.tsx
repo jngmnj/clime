@@ -9,6 +9,7 @@ import CurrentDateAndTime from '@/features/display-current-weather/ui/CurrentDat
 import CurrentWeather from '@/features/display-current-weather/ui/CurrentWeather';
 import { CurrentWeatherSkeleton } from '@/features/display-current-weather/ui/CurrentWeatherSkeleton';
 import { useCurrentPosition } from '@/shared/hooks/useCurrentPosition';
+import { useRegionName } from '@/shared/hooks/useRegionName';
 import { SEOUL_COORDS } from '@/shared/lib/constants';
 
 const HomePage = () => {
@@ -31,11 +32,16 @@ const HomePage = () => {
 
   const lat = coords?.latitude ?? SEOUL_COORDS.lat;
   const lon = coords?.longitude ?? SEOUL_COORDS.lon;
+  const { data: regionName, isPending: isRegionPending } = useRegionName(
+    lat,
+    lon,
+  );
   const locationLabel = useMemo(() => {
     if (isLoading) return '위치 확인중...';
     if (!coords) return '서울(기본값)';
-    return '현재 위치';
-  }, [coords, isLoading]);
+    if (isRegionPending || !regionName) return '현재 위치';
+    return regionName;
+  }, [coords, isLoading, isRegionPending, regionName]);
 
   return (
     <div className="relative">

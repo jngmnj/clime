@@ -1,18 +1,26 @@
+import { useMemo } from 'react';
 import { useSearchParams } from 'react-router';
 
 import type { ForecastListItem } from '@/entities/weather/model/types';
-import { useCurrentWeather } from '@/features/display-current-weather/model/useCurrentWeather';
+import { useDetailPageData } from '@/features/display-current-weather/model/useDetailPageData';
 import CurrentWeatherDetail from '@/features/display-current-weather/ui/CurrentWeatherDetail';
 import CurrentWeatherHero from '@/features/display-current-weather/ui/CurrentWeatherHero';
-import { useForecast } from '@/features/display-forecast/model/useForecast';
 import NextDaysForecast from '@/features/display-forecast/ui/NextDaysForecast';
 import TodayTempChart from '@/features/display-forecast/ui/TodayTempChart';
 import { SEOUL_COORDS } from '@/shared/lib/constants';
 
-const getTodayItems = (list: ForecastListItem[]): ForecastListItem[] => {
-  const today = new Date().toDateString();
+const getTodayAndTomorrowItems = (
+  list: ForecastListItem[],
+): ForecastListItem[] => {
+  const now = new Date();
+  const today = now.toDateString();
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   return list.filter(
-    (item) => new Date(item.dt * 1000).toDateString() === today,
+    (item) =>
+      new Date(item.dt * 1000).toDateString() === today ||
+      new Date(item.dt * 1000).toDateString() === tomorrow.toDateString(),
   );
 };
 
@@ -21,23 +29,26 @@ const DetailContent = () => {
   const lat = Number(searchParams.get('lat')) || SEOUL_COORDS.lat;
   const lon = Number(searchParams.get('lon')) || SEOUL_COORDS.lon;
 
-  const { data: weatherData } = useCurrentWeather(lat, lon);
-  const { data: forecastData } = useForecast(lat, lon);
+  const { location, weather, forecast } = useDetailPageData(lat, lon);
 
-  const todayItems = getTodayItems(forecastData.list);
+  const todayItems = useMemo(
+    () => getTodayAndTomorrowItems(forecast.list),
+    [forecast.list],
+  );
+  const locationLabel = location.regionName ?? weather.name ?? '날씨';
 
   return (
     <div className="space-y-10">
       <section>
         <h1 className="mb-6 text-2xl font-bold text-white">
-          {weatherData.name}의 날씨
+          {locationLabel}의 날씨
         </h1>
-        <CurrentWeatherHero lat={lat} lon={lon} data={weatherData} />
+        <CurrentWeatherHero location={location} weather={weather} />
       </section>
 
       <section>
         <h2 className="mb-4 text-xl font-semibold text-white">상세 날씨</h2>
-        <CurrentWeatherDetail data={weatherData} />
+        <CurrentWeatherDetail data={weather} />
       </section>
 
       <section className="bg-card rounded-xl border p-6">
@@ -45,7 +56,7 @@ const DetailContent = () => {
       </section>
 
       <section>
-        <NextDaysForecast list={forecastData.list} />
+        <NextDaysForecast list={forecast.list} />
       </section>
     </div>
   );
