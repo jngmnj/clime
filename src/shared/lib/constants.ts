@@ -1,5 +1,6 @@
 export const QUERY_KEYS = {
   weather: 'currentWeather',
+  forecast: 'forecast',
   favorite: 'favorite',
 } as const;
 
