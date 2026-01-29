@@ -1,1 +1,2 @@
-export type Coords = { latitude: number; longitude: number };
+// Backward-compat re-export. Prefer importing from `./types`.
+export * from './types';
