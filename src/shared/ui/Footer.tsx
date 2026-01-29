@@ -2,16 +2,16 @@ import { Link } from 'react-router';
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t">
+    <footer className="border-t border-white/10">
       <div className="mx-auto max-w-4xl px-4 py-6">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-white/60">
             © {new Date().getFullYear()} jngmnj. All rights reserved.
           </p>
           <Link
             to="https://github.com/jngmnj/clime"
             target="_blank"
-            className="hover:text-foreground text-muted-foreground flex items-center gap-1 transition-colors"
+            className="flex items-center gap-1 text-white/80 transition-colors hover:text-white"
           >
             <svg
               className="size-4 shrink-0"
