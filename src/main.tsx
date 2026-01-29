@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')!).render(
         >
           <App />
         </ErrorBoundary>
-        <ReactQueryDevtools />
+        {import.meta.env.DEV && <ReactQueryDevtools />}
         <Toaster position="top-center" />
       </QueryClientProvider>
     </BrowserRouter>
