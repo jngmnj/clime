@@ -7,11 +7,14 @@ import { Input } from '@/components/ui/input';
 import type { NormalizedDistrict } from '@/entities/location';
 import { fetchCoordsByKakaoAddress } from '@/entities/weather/api/kakaoAddress';
 import { useFilteredDistricts } from '@/features/search-location/model/useDistricts';
+import { highlightMatch } from '@/shared/lib/highlightMatch';
 import { cn } from '@/shared/lib/utils';
 
 const RESULT_LIST_ID = 'search-location-results';
+
 interface SearchLocationDialogProps {
   open: boolean;
+  // eslint-disable-next-line no-unused-vars -- callback type; param is for API contract
   onOpenChange: (value: boolean) => void;
 }
 
@@ -128,7 +131,7 @@ const SearchLocation = ({ open, onOpenChange }: SearchLocationDialogProps) => {
                 onClick={() => handleSelect(district)}
                 disabled={isGeocoding}
               >
-                {district.fullName.split('-').join(' ')}
+                {highlightMatch(district.fullName.split('-').join(' '), query)}
               </button>
             ))}
           </div>
