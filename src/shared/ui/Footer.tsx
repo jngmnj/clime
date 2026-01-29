@@ -2,16 +2,23 @@ import { Link } from 'react-router';
 
 const Footer = () => {
   return (
-    <footer className="border-t border-white/10">
+    <footer
+      className="border-t"
+      style={{ borderColor: 'var(--layout-overlay-border)' }}
+    >
       <div className="mx-auto max-w-4xl px-4 py-6">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-sm text-white/60">
+          <p
+            className="text-sm opacity-80"
+            style={{ color: 'var(--layout-overlay-fg)' }}
+          >
             © {new Date().getFullYear()} jngmnj. All rights reserved.
           </p>
           <Link
             to="https://github.com/jngmnj/clime"
             target="_blank"
-            className="flex items-center gap-1 text-white/80 transition-colors hover:text-white"
+            className="flex items-center gap-1 opacity-90 transition-opacity hover:opacity-100"
+            style={{ color: 'var(--layout-overlay-fg)' }}
           >
             <svg
               className="size-4 shrink-0"

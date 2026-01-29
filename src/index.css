@@ -14,6 +14,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-border: var(--card-border);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
@@ -46,10 +47,19 @@
 
 :root {
   --radius: 0.625rem;
+  /* 레이아웃 그라데이션 (메인 배경) */
+  --layout-gradient-from: #b2d6ff;
+  --layout-gradient-via: #2b7fff;
+  --layout-gradient-to: #2785ff;
+  /* 레이아웃 위 헤더/푸터 (그라데이션 위 오버레이) */
+  --layout-overlay-bg: oklch(0.62 0.2 258.62 / 0.12);
+  --layout-overlay-fg: oklch(1 0 0);
+  --layout-overlay-border: oklch(1 0 0 / 0.1);
   /* 배경·텍스트 */
   --background: oklch(0.985 0.002 247);
   --foreground: oklch(0.18 0.02 260);
-  --card: oklch(1 0 0);
+  --card: oklch(1 0 0 / 0.9);
+  --card-border: oklch(1 0 0 / 0.2);
   --card-foreground: oklch(0.18 0.02 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.02 260);
@@ -86,12 +96,21 @@
 }
 
 .dark {
+  /* 레이아웃 그라데이션 (다크 모드: 더 어두운 블루) */
+  --layout-gradient-from: oklch(0.25 0.08 260);
+  --layout-gradient-via: oklch(0.35 0.12 255);
+  --layout-gradient-to: oklch(0.3 0.1 255);
+  /* 레이아웃 위 오버레이 */
+  --layout-overlay-bg: oklch(0.2 0.02 260 / 0.1);
+  --layout-overlay-fg: oklch(0.98 0.01 250);
+  --layout-overlay-border: oklch(1 0 0 / 0.12);
   /* 배경·텍스트 */
   --background: oklch(0.14 0.02 260);
   --foreground: oklch(0.95 0.01 250);
-  --card: oklch(0.19 0.02 260);
+  --card: oklch(0.3 0.1 255.34);
+  --card-border: oklch(0.37 0.12 255.3);
   --card-foreground: oklch(0.95 0.01 250);
-  --popover: oklch(0.19 0.02 260);
+  --popover: oklch(0.3 0.1 255.34);
   --popover-foreground: oklch(0.95 0.01 250);
   /* primary: 라이트 모드보다 밝게 */
   --primary: oklch(0.7 0.18 250);
@@ -99,7 +118,7 @@
   --secondary: oklch(0.26 0.03 260);
   --secondary-foreground: oklch(0.95 0.01 250);
   --muted: oklch(0.26 0.03 260);
-  --muted-foreground: oklch(0.65 0.02 250);
+  --muted-foreground: oklch(0.77 0 0);
   --accent: oklch(0.32 0.06 250);
   --accent-foreground: oklch(0.95 0.01 250);
   --destructive: oklch(0.6 0.22 25);
@@ -119,6 +138,16 @@
   --sidebar-accent-foreground: oklch(0.95 0 0);
   --sidebar-border: oklch(0.3 0.03 260);
   --sidebar-ring: oklch(0.6 0.18 250);
+}
+
+/* 레이아웃 그라데이션 (CSS 변수 사용) */
+.layout-gradient {
+  background: linear-gradient(
+    to bottom right,
+    var(--layout-gradient-from),
+    var(--layout-gradient-via),
+    var(--layout-gradient-to)
+  );
 }
 
 @layer base {

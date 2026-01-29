@@ -24,7 +24,7 @@ const CurrentWeatherDetail = ({ data }: CurrentWeatherDetailProps) => {
 
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      <Card>
+      <Card className="border-card-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Wind className="h-5 w-5" />
@@ -49,7 +49,7 @@ const CurrentWeatherDetail = ({ data }: CurrentWeatherDetailProps) => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-card-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Droplets className="h-5 w-5" />
@@ -64,7 +64,7 @@ const CurrentWeatherDetail = ({ data }: CurrentWeatherDetailProps) => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-card-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Sunrise className="h-5 w-5" />
@@ -89,7 +89,7 @@ const CurrentWeatherDetail = ({ data }: CurrentWeatherDetailProps) => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-card-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <BarChart3 className="h-5 w-5" />
@@ -104,7 +104,7 @@ const CurrentWeatherDetail = ({ data }: CurrentWeatherDetailProps) => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-card-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Eye className="h-5 w-5" />
@@ -123,7 +123,7 @@ const CurrentWeatherDetail = ({ data }: CurrentWeatherDetailProps) => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-card-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <CloudRain className="h-5 w-5" />
