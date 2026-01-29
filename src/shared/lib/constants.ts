@@ -2,6 +2,7 @@ export const QUERY_KEYS = {
   weather: 'currentWeather',
   forecast: 'forecast',
   favorite: 'favorite',
+  regionName: 'regionName',
 } as const;
 
 export const SEOUL_COORDS = {
