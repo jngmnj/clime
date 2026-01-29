@@ -7,6 +7,7 @@ import CurrentWeatherDetail from '@/features/display-current-weather/ui/CurrentW
 import CurrentWeatherHero from '@/features/display-current-weather/ui/CurrentWeatherHero';
 import NextDaysForecast from '@/features/display-forecast/ui/NextDaysForecast';
 import TodayTempChart from '@/features/display-forecast/ui/TodayTempChart';
+import { FavoriteActionButton } from '@/features/favorite-location';
 import { SEOUL_COORDS } from '@/shared/lib/constants';
 
 const getTodayAndTomorrowItems = (
@@ -40,9 +41,17 @@ const DetailContent = () => {
   return (
     <div className="space-y-10">
       <section>
-        <h1 className="mb-6 text-2xl font-bold text-white">
-          {locationLabel}의 날씨
-        </h1>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+          <h1 className="text-2xl font-bold text-white">
+            {locationLabel}의 날씨
+          </h1>
+          <FavoriteActionButton
+            lat={lat}
+            lon={lon}
+            regionName={location.regionName}
+            className="shrink-0"
+          />
+        </div>
         <CurrentWeatherHero location={location} weather={weather} />
       </section>
 
