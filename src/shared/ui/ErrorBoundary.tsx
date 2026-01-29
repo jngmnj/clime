@@ -1,4 +1,3 @@
-// shared/ui/ResettableErrorBoundary.tsx
 import type { ReactNode } from 'react';
 import React, { Component } from 'react';
 
